@@ -5,9 +5,12 @@
  */
 package com.mycompany.loja.virtual.repository;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.sql.DataSource;
+
+
 
 /**
  *
@@ -15,13 +18,31 @@ import java.sql.SQLException;
  */
 public class ConnectionFactory {
 
-    public Connection recuperarConeConnection() throws SQLException {
-        return DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/Loja_virtual", "david", "64100122");
+    public DataSource dataSource;
 
+    public ConnectionFactory() {
+
+        /*Aqui estamos configurando o Pool de conexões */
+        ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
+
+        /*Configurando a url de conexão*/
+        comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/Loja_virtual");
+
+        /*Configurando o usuario do banco*/
+        comboPooledDataSource.setUser("david");
+
+        /*Configurando a senha do Banco*/
+        comboPooledDataSource.setPassword("64100122");
         
+        comboPooledDataSource.setMaxPoolSize(15);
 
-       
+        this.dataSource = comboPooledDataSource;
+
+    }
+
+    public Connection recuperarConeConnection() throws SQLException {
+        return this.dataSource.getConnection();
+
     }
 
 }
