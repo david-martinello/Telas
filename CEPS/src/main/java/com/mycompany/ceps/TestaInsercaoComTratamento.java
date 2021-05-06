@@ -13,6 +13,7 @@ public class TestaInsercaoComTratamento {
         ConnectionFactory factory = new ConnectionFactory();
         Connection connection = factory.recuperaConexao();
 
+
         Scanner scan = new Scanner(System.in);
         System.out.println("Insira o CEP");
         String x = scan.nextLine();

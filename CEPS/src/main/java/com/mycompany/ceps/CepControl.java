@@ -35,13 +35,16 @@ public class CepControl {
             cep.setIbge(json.getString("ibge"));
             cep.setLogradouro(json.getString("logradouro"));
             cep.setUf(json.getString("uf"));
+            
+            errosDAO.verificar(cep);
+            
 
             System.out.println(cep);
 
         } catch (IOException | JSONException e) {
             errosDAO.buscar(cep);
-            errosDAO.duplicar(cep);
-            errosDAO.verificar(cep);
+//            errosDAO.duplicar(cep);
+           
             throw new RuntimeException(e);
         }
         return cep;
