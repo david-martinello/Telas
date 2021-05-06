@@ -1,16 +1,21 @@
 package com.mycompany.ceps;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import org.json.JSONException;
+import java.sql.SQLException;
 
 import org.json.JSONObject;
 
 public class CepControl {
 
-    public static Cep buscarCep(String cepDigitado) {
+    public static Cep buscarCep(String cepDigitado) throws SQLException, IOException {
         Cep cep =new Cep(cepDigitado);
+        ErrosDAO errosDAO = new ErrosDAO();
+        
         try {
             URL url = new URL(" http://viacep.com.br/ws/" + cepDigitado + "/json");
             URLConnection connection = url.openConnection();
@@ -33,7 +38,10 @@ public class CepControl {
 
             System.out.println(cep);
 
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
+            errosDAO.buscar(cep);
+            errosDAO.duplicar(cep);
+            errosDAO.verificar(cep);
             throw new RuntimeException(e);
         }
         return cep;

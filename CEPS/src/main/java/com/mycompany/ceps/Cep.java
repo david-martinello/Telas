@@ -109,7 +109,10 @@ public class Cep {
    
     @Override
     public String toString() {
-        return "Cep{" + "cep=" + getCep() + ", logradouro=" + getLogradouro() + ", complemento=" + getComplemento() + ", bairro=" + getBairro() + ", localidade=" + getLocalidade() + ", uf=" + getUf() + ", unidade=" + getUnidade() + ", ibge=" + getIbge() + ", gia=" + getGia() + '}';
+        return "Cep{" + "cep=" + getCep() + ", logradouro=" + getLogradouro() + ", complemento=" 
+                + getComplemento() + ", bairro=" + getBairro() + ", localidade=" + getLocalidade() + ", uf=" + getUf() 
+                + ", unidade=" 
+                + getUnidade() + ", ibge=" + getIbge() + ", gia=" + getGia() + '}';
     }
 }
 
