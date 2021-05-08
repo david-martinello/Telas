@@ -22,9 +22,9 @@ public class ConnectionFactory {
 
     public ConnectionFactory() {
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
-        comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/Loja_virtual");
-        comboPooledDataSource.setUser("david");
-        comboPooledDataSource.setPassword("64100122");
+        comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/loja_virtual");
+        comboPooledDataSource.setUser("root");
+        comboPooledDataSource.setPassword("");
 
         this.dataSource = comboPooledDataSource;
     }

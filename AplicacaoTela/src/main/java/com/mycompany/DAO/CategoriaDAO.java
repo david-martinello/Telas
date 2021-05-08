@@ -70,7 +70,7 @@ public class CategoriaDAO {
                         categorias.add(categoria);
                     }
                     Produto produto
-                            = new Produto(rst.getInt(3), rst.getString(4), rst.getString(5));
+                            = new Produto(rst.getString(3), rst.getString(4), rst.getString(5));
                     ultima.adicionar(produto);
 
                 }

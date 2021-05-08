@@ -7,10 +7,8 @@ package com.mycompany.veiws;
 
 import com.mycompany.controller.CategoriaController;
 import com.mycompany.controller.ProdutoController;
-import com.mycompany.controller.QuantidadeController;
 import com.mycompany.modelo.Categoria;
 import com.mycompany.modelo.Produto;
-import com.mycompany.modelo.Quantidade;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -34,21 +32,20 @@ public class ProdutoCategoriaFrame extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private JLabel labelNome, labelDescricao, labelCategoria, labelQuantidade;
-    private JTextField textoNome, textoDescricao, textQuantidade;
+    private JTextField textoNome, textoDescricao, textoquantidade;
     private JComboBox<Categoria> comboCategoria;
     private JButton botaoSalvar, botaoEditar, botaoLimpar, botarApagar;
     private JTable tabela;
     private DefaultTableModel modelo;
     private ProdutoController produtoController;
     private CategoriaController categoriaController;
-    private QuantidadeController quantidadeController;
    
     
     public ProdutoCategoriaFrame() {
         super("Produtos");
         Container container = getContentPane();
         setLayout(null);
-
+        
         this.categoriaController = new CategoriaController();
         this.produtoController = new ProdutoController();
 
@@ -74,23 +71,26 @@ public class ProdutoCategoriaFrame extends JFrame {
 
         textoNome = new JTextField();
         textoDescricao = new JTextField();
-        textQuantidade = new JTextField();
+        textoquantidade = new JTextField();
         comboCategoria = new JComboBox<Categoria>();
+        
+        
 
         comboCategoria.addItem(new Categoria(0, "Selecione"));
         List<Categoria> categorias = this.listarCategoria();
         for (Categoria categoria : categorias) {
             comboCategoria.addItem(categoria);
         }
+        
 
         textoNome.setBounds(10, 25, 265, 20);
         textoDescricao.setBounds(10, 65, 265, 20);
-        textQuantidade.setBounds(10, 105, 265, 20);
+        textoquantidade.setBounds(10, 105, 265, 20);
         comboCategoria.setBounds(10, 145, 265, 20);
 
         container.add(textoNome);
         container.add(textoDescricao);
-        container.add(textQuantidade);
+        container.add(textoquantidade);
         container.add(comboCategoria);
 
         botaoSalvar = new JButton("Salvar");
@@ -108,17 +108,18 @@ public class ProdutoCategoriaFrame extends JFrame {
         modelo.addColumn("Identificador do Produto");
         modelo.addColumn("Nome do Produto");
         modelo.addColumn("Descrição do Produto");
+        modelo.addColumn("Quantidade de Produtos");
 
         preencherTabela();
-
-        tabela.setBounds(10, 225, 760, 300);
+        tabela.getAutoscrolls();
+        tabela.setBounds(10, 230, 770, 300);
         container.add(tabela);
 
         botarApagar = new JButton("Excluir");
         botaoEditar = new JButton("Alterar");
 
-        botarApagar.setBounds(10, 550, 80, 20);
-        botaoEditar.setBounds(100, 550, 80, 20);
+        botarApagar.setBounds(10, 530, 80, 20);
+        botaoEditar.setBounds(100, 530, 80, 20);
 
         container.add(botarApagar);
         container.add(botaoEditar);
@@ -174,7 +175,7 @@ public class ProdutoCategoriaFrame extends JFrame {
             String nome = (String) modelo.getValueAt(tabela.getSelectedRow(), 1);
             String descricao = (String) modelo.getValueAt(tabela.getSelectedRow(), 2);
             String quantidade = (String) modelo.getValueAt(tabela.getSelectedRow(), 3);
-            this.produtoController.alterar(nome, descricao, id, quantidade);
+            this.produtoController.alterar(nome, descricao, quantidade, id);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecionar o ID");
         }
@@ -206,16 +207,16 @@ public class ProdutoCategoriaFrame extends JFrame {
     private List<Categoria> listarCategoria() {
         return this.categoriaController.listar();
     }
+    
+   
 
     private void salvar() {
-        if (!textoNome.getText().equals("") && !textoDescricao.getText().equals("") && !textQuantidade.getText().equals("")) {
-            Produto produto = new Produto(textoNome.getText(), textoDescricao.getText());
-            Quantidade quantidade = new Quantidade(textQuantidade.getText());
+        if (!textoNome.getText().equals("") && !textoDescricao.getText().equals("")&& !textoquantidade.getText().equals("")) {
+            Produto produto = new Produto(textoNome.getText(), textoDescricao.getText(), textoquantidade.getText());
             Categoria categoria = (Categoria) comboCategoria.getSelectedItem();
             produto.setCategoriaId(categoria.getId());
-            quantidade.setQuantidade(quantidade.getQuantidade());
             this.produtoController.salvar(produto);
-            this.quantidadeController.salvar(produto);
+            
             JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
             this.limpar();
         } else {
@@ -231,7 +232,7 @@ public class ProdutoCategoriaFrame extends JFrame {
         this.textoNome.setText("");
         this.textoDescricao.setText("");
         this.comboCategoria.setSelectedIndex(0);
-        this.textQuantidade.setText("");
+        this.textoquantidade.setText("");
     }
 
 }

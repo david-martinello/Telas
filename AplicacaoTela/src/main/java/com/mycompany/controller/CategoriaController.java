@@ -9,8 +9,6 @@ import com.mycompany.DAO.CategoriaDAO;
 import com.mycompany.connection.ConnectionFactory;
 import com.mycompany.modelo.Categoria;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

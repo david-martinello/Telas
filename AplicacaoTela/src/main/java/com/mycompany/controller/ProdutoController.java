@@ -41,17 +41,20 @@ public class ProdutoController {
 	}
 
 	public List<Produto> listar() {
+            
+				
 		return this.produtoDAO.listar();
 	}
 
-	public void alterar(String nome, String descricao, Integer id, String quantidade) {
-            this.produtoDAO.alterar(nome, descricao, id, quantidade);
+	public void alterar(String nome, String descricao, String quantidade, Integer id) {
+            this.produtoDAO.alterar(nome, descricao, quantidade, id);
             
 		System.out.println("Alterando produto");
 	}
         public void salvarCategoria(Produto produto){
             this.produtoDAO.salvarComCategoria(produto);
         }
+       
         
 }
     
